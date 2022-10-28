@@ -10,7 +10,7 @@ const Frame = ({ children }: Props) => {
   return (
     <>
       <Header />
-      <div className="pt-24">{children}</div>
+      <div className="pt-28">{children}</div>
       <Footer />
     </>
   );
