@@ -66,7 +66,8 @@ const Signup = () => {
             "email : " + email + "password : " + password,
             "confirm : " + confirmPassword
           );
-        }}>
+        }}
+      >
         회원가입
       </button>
     </div>

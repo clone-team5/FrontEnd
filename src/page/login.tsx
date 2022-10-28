@@ -13,9 +13,11 @@ const Login = () => {
   const handleChangePw: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setInputs((cur) => ({ ...cur, pw: target.value }));
   };
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     console.log("inputs : ", inputs);
+    const data = await (await fetch("url")).json();
+    console.log(data);
     setInputs({ id: "", pw: "" });
   };
   const handleClickSingup = () => {
@@ -23,7 +25,12 @@ const Login = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input onChange={handleChangeId} value={inputs.id} type="text" />
+      <input
+        onChange={handleChangeId}
+        value={inputs.id}
+        type="text"
+        className="bg-slate-600 w-4"
+      />
       <input onChange={handleChangePw} value={inputs.pw} type="password" />
       <button>submit</button>
       <input type="button" onClick={handleClickSingup} value="sign up" />
