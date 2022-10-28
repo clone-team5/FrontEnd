@@ -10,9 +10,10 @@ function BrandFocus() {
         <div className="text-[12px] text-gray-400">추천 브랜드</div>
       </div>
       <div className="h-[416px]">
-        {BrandArray.map((item) => (
+        {/* map 함수가 return값이 필요해서 return 해와야 된다라고 오인 */}
+        {BrandArray.map((item, i) => (
           <div>
-            {item?.ImageUrl}
+            <img src={item?.ImageUrl ?? ""} />
             {item?.name}
           </div>
         ))}
