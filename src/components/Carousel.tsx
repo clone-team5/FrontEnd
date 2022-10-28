@@ -1,8 +1,13 @@
 import icons from "./icons";
 import { useState, useEffect, useCallback } from "react";
 import { cls, cycler } from "../utils";
+import { Picture } from "../types";
 
-const Carousel = ({ pictures }: { pictures: string[] }) => {
+interface Props {
+  pictures: Picture[];
+}
+
+const Carousel = ({ pictures }: Props) => {
   const [selected, setSelected] = useState(0);
   const pictureCycler = cycler(pictures.length);
   const handleChangeLeft = () => {
@@ -19,12 +24,13 @@ const Carousel = ({ pictures }: { pictures: string[] }) => {
     setInterval(nextImage, 5000);
   }, []);
   return (
-    <div className="relative w-full min-h-[480px]">
-      {pictures.map((e, i) => (
-        <div
+    <div className={"relative w-full min-h-[480px]"}>
+      {pictures.map((picture, i) => (
+        <img
+          src={picture.urls}
           className={cls(
-            "absolute w-full h-full duration-200 ease-linear transition-all",
-            e,
+            "absolute w-full h-full duration-200 ease-linear transition-all object-contain",
+            picture.color,
             i > selected ? "opacity-0" : "opacity-100 "
           )}
         />
