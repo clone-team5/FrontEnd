@@ -5,29 +5,29 @@ const Header = () => {
   const nav = useNavigate();
 
   return (
-    <>
-      <div className="w-screen h-[2.1rem] p-[8px] border-solid border-b">
-        <div className="flex items-stretch flex-row justify-end">
-          <div className="mr-[1rem]">고객센터</div>
-          <div className="mr-[1rem]">관심상품</div>
-          <div className="mr-[1rem]">마이페이지</div>
-          <div className="mr-[1rem]">로그인</div>
+    <div className="fixed z-10 bg-white">
+      <div className="flex w-screen h-[2.1rem] p-[8px] border-solid border-b items-center justify-end">
+        <div className="flex items-stretch flex-row text-[0.8rem]">
+          <div className="mr-[1.4rem]">고객센터</div>
+          <div className="mr-[1.4rem]">관심상품</div>
+          <div className="mr-[1.4rem]">마이페이지</div>
+          <div className="mr-[1.8rem]">로그인</div>
         </div>
       </div>
-      <div className="w-screen h-[4.8rem] border-solid border-b">
-        <div>Kream</div>
+      <div className="flex marker:w-screen h-[4.8rem] border-solid border-b justify-between items-center">
+        <div className="ml-[3rem]  text-[3.5rem]">Kream</div>
         <div className="flex items-stretch flex-row justify-end">
-          <div className="mr-[1rem] text-[15px]">STYLE</div>
-          <div className="mr-[1rem] text-[15px]">SHOP</div>
-          <div className="mr-[1rem] text-[15px]">ABOUT</div>
-          <div className="mr-[1rem]">
+          <div className="mr-[2rem] text-[1.4rem]">STYLE</div>
+          <div className="mr-[2rem] text-[1.4rem]">SHOP</div>
+          <div className="mr-[2rem] text-[1.4rem]">ABOUT</div>
+          <div className="mr-[2rem]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
+              strokeWidth={1.8}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-9 h-9">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -37,7 +37,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
