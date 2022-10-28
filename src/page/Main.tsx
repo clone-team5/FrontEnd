@@ -13,7 +13,7 @@ const Main = () => {
           "bg-slate-300",
         ]}
       />
-      <BrandFocus />
+      {/* <BrandFocus /> */}
     </div>
   );
 };

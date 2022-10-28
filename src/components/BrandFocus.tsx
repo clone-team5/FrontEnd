@@ -10,12 +10,12 @@ function BrandFocus() {
         <div className="text-[12px] text-gray-400">추천 브랜드</div>
       </div>
       <div className="h-[416px]">
-        {BrandArray.map((item) => {
+        {BrandArray.map((item) => (
           <div>
-            {item.ImageUrl}
-            {item.name}
-          </div>;
-        })}
+            {item?.ImageUrl}
+            {item?.name}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -28,7 +28,7 @@ interface Brand {
   ImageUrl: string;
 }
 
-const BrandArray: Array<Brand> = [
+const BrandArray: Array<Brand | undefined> = [
   {
     name: "애플",
     ImageUrl:
