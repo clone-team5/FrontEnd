@@ -2,21 +2,21 @@ import React from "react";
 
 function BrandFocus() {
   return (
-    <div className="flex w-screen h-[479px]">
+    <div className="w-[1280px] h-[479px] mt-[8rem] mx-auto px-10">
       <div className="flex-row">
         <div className="text-[20px] font-semibold tracking-tighter">
           Brand Focus
         </div>
-        <div className=" text-[12px] text-gray-400">추천 브랜드</div>
-        <div className="h-[416px] mt-[1rem] ml-[8px] grid grid-cols-5">
+        <div className="text-[12px] text-gray-400">추천 브랜드</div>
+        <div className="h-[416px] mt-[1rem] grid grid-cols-5">
           {/* map 함수가 return값이 필요해서 return 해와야 된다라고 오인 */}
-          {BrandArray1.map((item, i) => (
+          {BrandArray1.map((item) => (
             <div>
               <img
                 src={item?.ImageUrl}
                 className="w-[228px] ml-[4px] mr-[4px]"
               />
-              <div className="mt-[8px] mb-[8px] text-[15px] flex justify-center">
+              <div className="mt-[8px] mb-[8px] mr-[8px] text-[15px] flex justify-center">
                 {item?.name}
               </div>
             </div>

@@ -12,8 +12,7 @@ const Infor = ({ name, url }: InforProps) => {
   return (
     <li
       onClick={handleClick}
-      className="cursor-pointer motion-reduce:hidden first:mt-0 mt-3 text-gray-400 text-sm"
-    >
+      className="cursor-pointer motion-reduce:hidden first:mt-0 mt-3 text-gray-400 text-sm">
       {name}
     </li>
   );

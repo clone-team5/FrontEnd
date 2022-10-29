@@ -29,8 +29,8 @@ const Main = () => {
           },
         ]}
       />
-      {/* <BrandFocus /> */}
       <Showwindow />
+      <BrandFocus />
     </div>
   );
 };
