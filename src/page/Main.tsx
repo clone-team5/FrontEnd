@@ -1,6 +1,6 @@
 import Carousel from "../components/Carousel";
-import Header from "../layout/Header";
 import BrandFocus from "../components/BrandFocus";
+import Showwindow from "../components/Showwindow";
 
 const Main = () => {
   return (
@@ -30,6 +30,7 @@ const Main = () => {
         ]}
       />
       {/* <BrandFocus /> */}
+      <Showwindow />
     </div>
   );
 };
