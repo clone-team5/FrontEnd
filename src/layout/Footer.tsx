@@ -21,7 +21,7 @@ const Footer = () => {
             <strong>이용안내</strong>
             <ul className="pt-4">
               {utilizeInformations.map((infor) => (
-                <Infor {...infor} />
+                <Infor key={infor.name} {...infor} />
               ))}
             </ul>
           </div>
@@ -29,7 +29,7 @@ const Footer = () => {
             <strong>고객지원</strong>
             <ul className="pt-4">
               {customerSupportInformations.map((infor) => (
-                <Infor {...infor} />
+                <Infor key={infor.name} {...infor} />
               ))}
             </ul>
           </div>

@@ -27,6 +27,7 @@ const Carousel = ({ pictures }: Props) => {
     <div className={"relative w-full min-h-[480px]"}>
       {pictures.map((picture, i) => (
         <img
+          key={picture.urls}
           src={picture.urls}
           className={cls(
             "absolute w-full h-full duration-200 ease-linear transition-all object-contain",
@@ -47,8 +48,9 @@ const Carousel = ({ pictures }: Props) => {
         />
       </div>
       <ul className="absolute w-full flex justify-center gap-3 bottom-8">
-        {pictures.map((e, i) => (
+        {pictures.map((picture, i) => (
           <li
+            key={picture.urls}
             className={cls(
               "w-2 h-2 rounded-full duration-200 ease-linear transition-all",
               i === selected ? "bg-slate-600" : "bg-slate-200"
