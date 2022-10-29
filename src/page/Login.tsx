@@ -4,6 +4,7 @@ interface Inputs {
   id: string;
   pw: string;
 }
+
 const Login = () => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState<Inputs>({ id: "", pw: "" });
