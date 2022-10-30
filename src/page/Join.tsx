@@ -1,77 +1,151 @@
-import React, {
-  useState,
-  useCallback,
-  FormEventHandler,
-  ChangeEventHandler,
-} from "react";
-import axios from "axios";
-
-interface user {
-  email: string;
-  password: string;
-  confirmPassword: string;
+import { useEffect, useState, ChangeEventHandler } from "react";
+import { useForm, FieldValues } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { SetStateAction, Dispatch } from "react";
+import Portal from "../components/Portal";
+import Toast from "../components/Toast";
+import { LoginForm } from "../types";
+import { cls, regOptEnter } from "../utils";
+interface NavStates {
+  isFadeout: boolean;
+  to: string;
+}
+interface Props {
+  navStates: NavStates;
+  setNavStates: Dispatch<SetStateAction<NavStates>>;
 }
 
-const Signup = () => {
-  const [email, SetEmail] = useState("");
-  const [password, SetPassword] = useState("");
-  const [confirmPassword, SetConfirmPassword] = useState("");
-
-  const emailCheck = (email: string) => {
-    const reg =
-      /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
-    return reg.test(email);
+const Join = ({ navStates, setNavStates }: Props) => {
+  const navigate = useNavigate();
+  const [isModalShow, setIsModalShow] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<LoginForm>({ mode: "onChange" });
+  const onValid = async (data: FieldValues) => {
+    console.log("inputs : ", data);
+    // const res = await (await fetch("url")).json();
+    // console.log(res);
+    setIsModalShow(true);
+    setTimeout(() => {
+      setIsModalShow(false);
+    }, 3000);
+    reset();
   };
-
-  const pwCheck = (pw: string) => {
-    const reg = /^[a-zA-Z0-9]{4,30}$/;
-    return reg.test(pw);
+  const onInValid = (data: FieldValues) => {};
+  const handleTransitionEnd = () => {
+    console.log(navStates);
+    navigate(navStates.to);
   };
-
-  console.log(email, password, confirmPassword);
-
-  /* const registerHandler = useCallback<HTML>(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      if (email === "" || password === "" || confirmPassword === "") {
-        alert("양식을 모두 입력해주세요");
-        return;
-      }
-    },
-    [email, password, confirmPassword]
-  ); */
-
-  const typeEmail: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    SetEmail(target.value);
+  const handleClick = () => {
+    setNavStates(() => ({ isFadeout: true, to: "/login" }));
   };
-
-  const typePw: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    SetPassword(target.value);
-  };
-
-  const typeCPw: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    SetConfirmPassword(target.value);
-  };
-
+  useEffect(() => {
+    setNavStates((cur) => ({ ...cur, isFadeout: false }));
+  }, []);
   return (
-    <div>
-      <input type="text" onChange={typeEmail} value={email}></input>
-      <button type="submit">중복 체크</button>
-      <input type="text" onChange={typePw} value={password}></input>
-      <input type="text" onChange={typeCPw} value={confirmPassword}></input>
-      <button
-        type="submit"
-        onClick={() => {
-          console.log(
-            "email : " + email + "password : " + password,
-            "confirm : " + confirmPassword
-          );
-        }}
+    <div
+      className={cls(
+        "w-[1200px] mx-auto px-10 transition-all duration-1000",
+        navStates.isFadeout ? "opacity-0" : "opacity-100"
+      )}
+      onTransitionEnd={handleTransitionEnd}
+    >
+      <form
+        className="w-[400px] h-[756px] mx-auto pt-[60px] pb-40"
+        onSubmit={handleSubmit(onValid, onInValid)}
       >
-        회원가입
-      </button>
+        <div className="h-full">
+          <h2 className="text-center pb-[50px] before:w-[250px] before:h-[56px] before:content-[''] before:bg-[length:250px_56px] before:inline-block before:bg-[url(https://kream.co.kr/_nuxt/img/login_title.9f9ccc8.png)]">
+            <span className="w-[1px] h-[1px] overflow-hidden absolute ">
+              KREAM
+            </span>
+          </h2>
+          <div className="pt-[10px] pb-[14px] h-20">
+            <h3
+              className={cls(
+                "text-[13px] transition-colors",
+                errors.email ? "text-red-500" : "text-gray-800"
+              )}
+            >
+              이메일 주소
+            </h3>
+            <input
+              {...register(...regOptEnter.email())}
+              type="email"
+              className={cls(
+                "w-full pr-[30px] transition-all pl-0 border-b  border-0 outline-none focus:border-b focus:outline-none border-transparent focus:border-transparent focus:ring-0 placeholder:text-gray-200 focus:placeholder:text-transparent",
+                errors.email
+                  ? "focus:border-b-red-500 border-b-red-500"
+                  : "focus:border-b-gray-800 border-b-gray-200"
+              )}
+              placeholder="예) kream@kream.co.kr"
+            />
+            <p className="text-[11px] leading-4 transition-colors text-red-500 block w-auto h-auto">
+              {errors.email?.message as string}
+            </p>
+          </div>
+          <div className="pt-[10px] pb-[14px] h-20">
+            <h3
+              className={cls(
+                "text-[13px] transition-colors",
+                errors.password ? "text-red-500" : "text-gray-800"
+              )}
+            >
+              비밀번호
+            </h3>
+            <input
+              {...register(...regOptEnter.password())}
+              type="password"
+              className={cls(
+                "w-full pr-[30px] transition-all pl-0 border-b border-b-gray-200 border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0",
+                errors.password
+                  ? "focus:border-b-red-500 border-b-red-500"
+                  : "focus:border-b-gray-800 border-b-gray-200"
+              )}
+            />
+            <p className="text-[11px] leading-4 transition-colors text-red-500 block w-auto h-auto">
+              {errors.password?.message as string}
+            </p>
+          </div>
+          <div className="h-[72px] pt-5 ">
+            <button
+              className={cls(
+                "block w-full text-white h-full rounded-xl font-semibold",
+                isValid ? "bg-gray-900" : "bg-gray-200"
+              )}
+            >
+              로그인
+            </button>
+          </div>
+          <ul className="mt-5 h-[17.5px] grid grid-cols-3 divide-x text-center divide-gray-300 text-[13px]">
+            <li onClick={handleClick}>이메일 가입</li>
+            <li>
+              <a href="">이메일 찾기</a>
+            </li>
+            <li>
+              <a href="">비밀번호 찾기</a>
+            </li>
+          </ul>
+          <div className="mt-10">
+            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold flex justify-center items-center cursor-pointer text-base">
+              <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
+              소셜로그인
+            </a>
+            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold flex justify-center items-center cursor-pointer text-base">
+              <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
+              소셜로그인
+            </a>
+          </div>
+        </div>
+      </form>
+      <Portal>
+        <Toast isShow={isModalShow} message={"hihi"} />
+      </Portal>
     </div>
   );
 };
 
-export default Signup;
+export default Join;
