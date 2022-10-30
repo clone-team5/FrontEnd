@@ -9,8 +9,9 @@ interface Props {
 
 const Carousel = ({ pictures }: Props) => {
   const [selected, setSelected] = useState(0);
-  const [dragStart, setDragStart] = useState({
+  const [dragState, setDragState] = useState({
     startPoint: 0,
+    isDragging: false,
     isFlipped: false,
   });
   const pictureCycler = cycler(pictures.length);
@@ -32,35 +33,46 @@ const Carousel = ({ pictures }: Props) => {
     setInterval(nextImage, 5000);
   }, []);
   const handleDrag = (e: MouseEvent<HTMLElement>) => {
-    if (dragStart.isFlipped) return;
+    if (dragState.isFlipped) return;
 
-    if (e.nativeEvent.screenX - dragStart.startPoint < -50) {
+    if (e.nativeEvent.screenX - dragState.startPoint < -50) {
       setSelected((cur) => pictureCycler(cur + 1));
-      setDragStart((cur) => ({
+      setDragState((cur) => ({
         ...cur,
         isFlipped: true,
       }));
-    } else if (e.nativeEvent.screenX - dragStart.startPoint > 50) {
+    } else if (e.nativeEvent.screenX - dragState.startPoint > 50) {
       setSelected((cur) => pictureCycler(cur - 1));
-      setDragStart((cur) => ({
+      setDragState((cur) => ({
         ...cur,
         isFlipped: true,
       }));
     }
   };
   const handleDragStart = (e: MouseEvent<HTMLElement>) => {
-    setDragStart(() => ({
+    setDragState(() => ({
       isFlipped: false,
+      isDragging: true,
       startPoint: e.nativeEvent.screenX,
+    }));
+  };
+  const handleDragEnd = (e: MouseEvent<HTMLElement>) => {
+    setDragState((cur) => ({
+      ...cur,
+      isDragging: false,
     }));
   };
 
   return (
     <div
       onClick={handleClickPicture(selected)}
-      className={cls("relative w-full min-h-[480px]", "cursor-pointer")}
+      className={cls(
+        "relative w-full min-h-[480px]",
+        dragState.isDragging ? "cursor-grabbing" : "cursor-pointer" //질문하기 cusor-grabbing 적용하려면?
+      )}
       onDrag={handleDrag}
       onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
     >
       {pictures.map((picture, i) => (
         <img
