@@ -34,7 +34,6 @@ const Carousel = ({ pictures }: Props) => {
   }, []);
   const handleDrag = (e: MouseEvent<HTMLElement>) => {
     if (dragState.isFlipped) return;
-
     if (e.nativeEvent.screenX - dragState.startPoint < -50) {
       setSelected((cur) => pictureCycler(cur + 1));
       setDragState((cur) => ({
@@ -61,6 +60,9 @@ const Carousel = ({ pictures }: Props) => {
       ...cur,
       isDragging: false,
     }));
+  };
+  const handleClickIndicator = (index: number) => () => {
+    setSelected(index);
   };
 
   return (
@@ -104,6 +106,7 @@ const Carousel = ({ pictures }: Props) => {
               "w-2 h-2 rounded-full duration-200 ease-linear transition-all",
               i === selected ? "bg-slate-600" : "bg-slate-200"
             )}
+            onClick={handleClickIndicator(i)}
           />
         ))}
       </ul>
