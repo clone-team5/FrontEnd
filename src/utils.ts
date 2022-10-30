@@ -34,8 +34,12 @@ export const regOptEnter = {
         message: "영문, 숫자, 특수문자를 조합해서 입력해주세요.",
       },
       minLength: {
-        value: 4,
-        message: "비밀번호는 최소 4자 이상 입력해 주세요",
+        value: 8,
+        message: "비밀번호는 최소 8자 이상 입력해 주세요",
+      },
+      maxLength: {
+        value: 16,
+        message: "비밀번호는 최대 16자 까지만 입력해 주세요",
       },
     },
   ]),

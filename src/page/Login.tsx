@@ -1,6 +1,8 @@
 import { useEffect, useState, ChangeEventHandler } from "react";
 import { useForm, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router";
+import Portal from "../components/Portal";
+import Toast from "../components/Toast";
 import { LoginForm } from "../types";
 import { cls, regOptEnter } from "../utils";
 interface Inputs {
@@ -14,7 +16,7 @@ const Login = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<LoginForm>({ mode: "onChange" });
   const onValid = async (data: FieldValues) => {
     console.log("inputs : ", data);
@@ -84,10 +86,42 @@ const Login = () => {
               {errors.password?.message as string}
             </p>
           </div>
-          <button>submit</button>
-          <input type="button" onClick={handleClickSingup} value="sign up" />
+          <div className="h-[72px] pt-5 ">
+            <button
+              className={cls(
+                "block w-full text-white h-full rounded-xl font-semibold",
+                isValid ? "bg-gray-900" : "bg-gray-200"
+              )}
+            >
+              로그인
+            </button>
+          </div>
+          <ul className="mt-5 h-[17.5px] grid grid-cols-3 divide-x text-center divide-gray-300 text-[13px]">
+            <li>
+              <a href="">이메일 가입</a>
+            </li>
+            <li>
+              <a href="">이메일 찾기</a>
+            </li>
+            <li>
+              <a href="">비밀번호 찾기</a>
+            </li>
+          </ul>
+          <div className="mt-10">
+            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold flex justify-center items-center cursor-pointer text-base">
+              <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
+              소셜로그인
+            </a>
+            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold flex justify-center items-center cursor-pointer text-base">
+              <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
+              소셜로그인
+            </a>
+          </div>
         </div>
       </form>
+      <Portal>
+        <Toast isShow={true} message={"hihi"} />
+      </Portal>
     </div>
   );
 };
