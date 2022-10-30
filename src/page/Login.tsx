@@ -31,8 +31,7 @@ const Login = () => {
     <div className="w-[1200px] mx-auto px-10">
       <form
         className="w-[400px] h-[756px] mx-auto pt-[60px] pb-40"
-        onSubmit={handleSubmit(onValid)}
-      >
+        onSubmit={handleSubmit(onValid)}>
         <div className="h-full">
           <h2 className="text-center pb-[50px] before:w-[250px] before:h-[56px] before:content-[''] before:bg-[length:250px_56px] before:inline-block before:bg-[url(https://kream.co.kr/_nuxt/img/login_title.9f9ccc8.png)]">
             <span className="w-[1px] h-[1px] overflow-hidden absolute ">
@@ -44,8 +43,7 @@ const Login = () => {
               className={cls(
                 "text-[13px] transition-colors",
                 errors.email ? "text-red-500" : "text-gray-800"
-              )}
-            >
+              )}>
               이메일 주소
             </h3>
             <input
@@ -68,8 +66,7 @@ const Login = () => {
               className={cls(
                 "text-[13px] transition-colors",
                 errors.password ? "text-red-500" : "text-gray-800"
-              )}
-            >
+              )}>
               비밀번호
             </h3>
             <input
@@ -91,8 +88,7 @@ const Login = () => {
               className={cls(
                 "block w-full text-white h-full rounded-xl font-semibold",
                 isValid ? "bg-gray-900" : "bg-gray-200"
-              )}
-            >
+              )}>
               로그인
             </button>
           </div>
@@ -108,11 +104,11 @@ const Login = () => {
             </li>
           </ul>
           <div className="mt-10">
-            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold flex justify-center items-center cursor-pointer text-base">
+            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
               <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
               소셜로그인
             </a>
-            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold flex justify-center items-center cursor-pointer text-base">
+            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
               <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
               소셜로그인
             </a>
