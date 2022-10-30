@@ -11,8 +11,8 @@ const Enter = ({ login, join }: Props) => {
   const [navStates, setNavStates] = useState({ isFadeout: true, to: "" });
   return (
     <>
-      <div>{login ? <Login {...{ navStates, setNavStates }} /> : null}</div>
-      <div>{join ? <Join {...{ navStates, setNavStates }} /> : null}</div>
+      {login ? <Login {...{ navStates, setNavStates }} /> : null}
+      {join ? <Join {...{ navStates, setNavStates }} /> : null}
     </>
   );
 };

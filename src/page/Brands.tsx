@@ -1,4 +1,5 @@
 import React from "react";
+import { Item } from "../types";
 
 function Brands() {
   return (
@@ -20,7 +21,8 @@ function Brands() {
             viewBox="0 0 24 24"
             strokeWidth={1}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -62,7 +64,8 @@ function Brands() {
               viewBox="0 0 24 24"
               strokeWidth={1.2}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

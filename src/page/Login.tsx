@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import Portal from "../components/Portal";
 import Toast from "../components/Toast";
 import { LoginForm } from "../types";
-import { cls, regOptEnter } from "../utils";
+import { cls, regOptJoin } from "../utils";
 import { SetStateAction, Dispatch } from "react";
 interface NavStates {
   isFadeout: boolean;
@@ -35,7 +35,6 @@ const Login = ({ navStates, setNavStates }: Props) => {
   };
   const onInValid = (data: FieldValues) => {};
   const handleTransitionEnd = () => {
-    console.log(navStates);
     navigate(navStates.to);
   };
   const handleClick = () => {
@@ -47,7 +46,7 @@ const Login = ({ navStates, setNavStates }: Props) => {
   return (
     <div
       className={cls(
-        "w-[1200px] mx-auto px-10 transition-all duration-1000",
+        "w-[1200px] mx-auto px-10 transition-all duration-300",
         navStates.isFadeout ? "opacity-0" : "opacity-100"
       )}
       onTransitionEnd={handleTransitionEnd}
@@ -72,7 +71,7 @@ const Login = ({ navStates, setNavStates }: Props) => {
               이메일 주소
             </h3>
             <input
-              {...register(...regOptEnter.email())}
+              {...register(...regOptJoin.email())}
               type="email"
               className={cls(
                 "w-full pr-[30px] transition-all pl-0 border-b  border-0 outline-none focus:border-b focus:outline-none border-transparent focus:border-transparent focus:ring-0 placeholder:text-gray-200 focus:placeholder:text-transparent",
@@ -96,7 +95,7 @@ const Login = ({ navStates, setNavStates }: Props) => {
               비밀번호
             </h3>
             <input
-              {...register(...regOptEnter.password())}
+              {...register(...regOptJoin.password())}
               type="password"
               className={cls(
                 "w-full pr-[30px] transition-all pl-0 border-b border-b-gray-200 border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0",
