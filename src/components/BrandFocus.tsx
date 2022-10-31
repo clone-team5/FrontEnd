@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function BrandFocus() {
   return (
@@ -12,10 +13,12 @@ function BrandFocus() {
           {/* map 함수가 return값이 필요해서 return 해와야 된다라고 오인 */}
           {BrandArray1.map((item) => (
             <div>
-              <img
-                src={item?.ImageUrl}
-                className="w-[228px] ml-[4px] mr-[4px]"
-              />
+              <Link to="/brands">
+                <img
+                  src={item?.ImageUrl}
+                  className="w-[228px] ml-[4px] mr-[4px]"
+                />
+              </Link>
               <div className="mt-[8px] mb-[8px] mr-[8px] text-[15px] flex justify-center">
                 {item?.name}
               </div>

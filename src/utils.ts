@@ -1,6 +1,8 @@
-import { OptionCreator } from "./types";
+import { NullLiteral } from "typescript";
+import { JoinForm, LoginForm, OptionCreator } from "./types";
 
-export const cls = (...classes: string[]) => classes.join(" ");
+export const cls = (...classes: (string | undefined | boolean)[]) =>
+  classes.filter((className) => className).join(" ");
 export const cycler = (cycle: number) => (num: number) =>
   ((num % cycle) + cycle) % cycle;
 export const attachComma = (num: number) =>
@@ -13,8 +15,8 @@ export const optionCreator: OptionCreator =
     return [name, { ...opts, ...customOpts }];
   };
 
-export const regOptEnter = {
-  email: optionCreator([
+export const regOptLogin = {
+  email: optionCreator<LoginForm>([
     "email",
     {
       required: "email이 입력되지 않았습니다.",
@@ -25,7 +27,7 @@ export const regOptEnter = {
       },
     },
   ]),
-  password: optionCreator([
+  password: optionCreator<LoginForm>([
     "password",
     {
       required: "비밀번호를 입력해주세요",
@@ -43,10 +45,17 @@ export const regOptEnter = {
       },
     },
   ]),
-  confirm: optionCreator([
-    "confirm",
-    {
-      required: "중복확인이 필요합니다",
-    },
-  ]),
+};
+export const regOptJoin = {
+  ...regOptLogin,
+  size: optionCreator<JoinForm>(["size", {}]),
+  age: [
+    optionCreator<JoinForm>(["age.0", {}]),
+    optionCreator<JoinForm>(["age.1", {}]),
+    optionCreator<JoinForm>(["age.2", {}]),
+  ],
+  notification: [
+    optionCreator<JoinForm>(["notification.0", {}]),
+    optionCreator<JoinForm>(["notification.1", {}]),
+  ],
 };

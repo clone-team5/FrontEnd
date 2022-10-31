@@ -4,14 +4,19 @@ import { useNavigate } from "react-router";
 import Portal from "../components/Portal";
 import Toast from "../components/Toast";
 import { LoginForm } from "../types";
-import { cls, regOptEnter } from "../utils";
-interface Inputs {
-  id: string;
-  pw: string;
+import { cls, regOptJoin } from "../utils";
+import { SetStateAction, Dispatch } from "react";
+interface NavStates {
+  isFadeout: boolean;
+  to: string;
 }
-
-const Login = () => {
+interface Props {
+  navStates: NavStates;
+  setNavStates: Dispatch<SetStateAction<NavStates>>;
+}
+const Login = ({ navStates, setNavStates }: Props) => {
   const navigate = useNavigate();
+  const [isModalShow, setIsModalShow] = useState(false);
   const {
     register,
     handleSubmit,
@@ -22,16 +27,32 @@ const Login = () => {
     console.log("inputs : ", data);
     // const res = await (await fetch("url")).json();
     // console.log(res);
+    setIsModalShow(true);
+    setTimeout(() => {
+      setIsModalShow(false);
+    }, 3000);
     reset();
   };
-  const handleClickSingup = () => {
-    navigate("/signup");
+  const onInValid = (data: FieldValues) => {};
+  const handleTransitionEnd = () => {
+    navigate(navStates.to);
   };
+  const handleClick = () => {
+    setNavStates(() => ({ isFadeout: true, to: "/join" }));
+  };
+  useEffect(() => {
+    setNavStates((cur) => ({ ...cur, isFadeout: false }));
+  }, []);
   return (
-    <div className="w-[1200px] mx-auto px-10">
+    <div
+      className={cls(
+        "w-[1200px] mx-auto px-10 transition-all duration-300",
+        navStates.isFadeout ? "opacity-0" : "opacity-100"
+      )}
+      onTransitionEnd={handleTransitionEnd}>
       <form
         className="w-[400px] h-[756px] mx-auto pt-[60px] pb-40"
-        onSubmit={handleSubmit(onValid)}>
+        onSubmit={handleSubmit(onValid, onInValid)}>
         <div className="h-full">
           <h2 className="text-center pb-[50px] before:w-[250px] before:h-[56px] before:content-[''] before:bg-[length:250px_56px] before:inline-block before:bg-[url(https://kream.co.kr/_nuxt/img/login_title.9f9ccc8.png)]">
             <span className="w-[1px] h-[1px] overflow-hidden absolute ">
@@ -47,7 +68,7 @@ const Login = () => {
               이메일 주소
             </h3>
             <input
-              {...register(...regOptEnter.email())}
+              {...register(...regOptJoin.email())}
               type="email"
               className={cls(
                 "w-full pr-[30px] transition-all pl-0 border-b  border-0 outline-none focus:border-b focus:outline-none border-transparent focus:border-transparent focus:ring-0 placeholder:text-gray-200 focus:placeholder:text-transparent",
@@ -70,7 +91,7 @@ const Login = () => {
               비밀번호
             </h3>
             <input
-              {...register(...regOptEnter.password())}
+              {...register(...regOptJoin.password())}
               type="password"
               className={cls(
                 "w-full pr-[30px] transition-all pl-0 border-b border-b-gray-200 border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0",
@@ -93,9 +114,7 @@ const Login = () => {
             </button>
           </div>
           <ul className="mt-5 h-[17.5px] grid grid-cols-3 divide-x text-center divide-gray-300 text-[13px]">
-            <li>
-              <a href="">이메일 가입</a>
-            </li>
+            <li onClick={handleClick}>이메일 가입</li>
             <li>
               <a href="">이메일 찾기</a>
             </li>
@@ -116,7 +135,7 @@ const Login = () => {
         </div>
       </form>
       <Portal>
-        <Toast isShow={true} message={"hihi"} />
+        <Toast isShow={isModalShow} message={"hihi"} />
       </Portal>
     </div>
   );
